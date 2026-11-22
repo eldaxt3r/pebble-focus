@@ -1,2 +1,21 @@
-.vercel
+# Vercel local link (project/org IDs)
+.vercel/
+
+# Secrets and local env files (the site needs none)
+.env
+.env.*
+*.pem
+*.key
+*.p12
+
+# OS / editor
 .DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Logs and tooling
+*.log
+node_modules/
+.taste-skill/
