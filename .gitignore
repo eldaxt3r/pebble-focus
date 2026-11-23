@@ -1,21 +1,30 @@
-# Vercel local link (project/org IDs)
-.vercel/
+# --- Swift / build output ---
+.build/
+build/
+dist/
+*.xcodeproj/xcuserdata/
+DerivedData/
 
-# Secrets and local env files (the site needs none)
+# --- Promo video project (kept local: AI-generated media, large deps) ---
+demo-video/
+
+# --- Secrets and local env files (the app needs none) ---
 .env
 .env.*
 *.pem
 *.key
 *.p12
+*.mobileprovision
+.vercel/
 
-# OS / editor
+# --- Local tooling ---
+.claude/
+.taste-skill/
+*.log
+
+# --- OS / editor ---
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
 *.swp
-
-# Logs and tooling
-*.log
-node_modules/
-.taste-skill/
