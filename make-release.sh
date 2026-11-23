@@ -24,6 +24,7 @@ lipo -create .build/rel-arm64/release/PebbleCompanion .build/rel-x86_64/release/
   -output "$APP/Contents/MacOS/PebbleCompanion"
 strip -x "$APP/Contents/MacOS/PebbleCompanion"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
+cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 chmod +x "$APP/Contents/MacOS/PebbleCompanion"
 xattr -cr "$APP"
 codesign --force --deep --sign - --timestamp=none "$APP"
