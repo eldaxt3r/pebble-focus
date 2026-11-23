@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="https://pebble-website-one.vercel.app/download/Pebble.dmg"><b>Download for Mac</b></a> ·
-  <a href="https://pebble-website-one.vercel.app">Website</a> ·
+  <a href="https://pebble-focus.vercel.app/download/Pebble.dmg"><b>Download for Mac</b></a> ·
+  <a href="https://pebble-focus.vercel.app">Website</a> ·
   <a href="#build-from-source">Build from source</a>
 </p>
 
@@ -61,7 +61,7 @@ Focused, mad when you wander, happy when you finish. One look at your notch tell
 
 ## Install
 
-1. [Download Pebble.dmg](https://pebble-website-one.vercel.app/download/Pebble.dmg) and drag **Pebble** into **Applications**.
+1. [Download Pebble.dmg](https://pebble-focus.vercel.app/download/Pebble.dmg) and drag **Pebble** into **Applications**.
 2. Open Pebble. Because it isn't notarized by Apple, macOS shows a "can't be verified" warning the first time.
 3. Open **System Settings › Privacy & Security**, scroll down and click **Open Anyway**. You only do this once.
 
