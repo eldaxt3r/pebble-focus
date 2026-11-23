@@ -1,6 +1,6 @@
 {
-  "version": "1.0.2",
-  "build": 3,
+  "version": "1.0.3",
+  "build": 4,
   "url": "https://pebble-focus.vercel.app/download/Pebble.dmg",
-  "notes": "Pebble now has its own app icon."
+  "notes": "Pebble now lives in your Dock with the running dot. Click its icon to open the Pebble menu."
 }

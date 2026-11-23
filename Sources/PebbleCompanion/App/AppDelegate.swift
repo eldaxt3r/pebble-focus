@@ -20,7 +20,9 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
     private var browserTabWatcher: BrowserTabWatcher!
 
     public func applicationDidFinishLaunching(_ notification: Notification) {
-        NSApp.setActivationPolicy(.accessory)
+        // Regular app: Pebble shows in the Dock with the running dot; clicking it opens the menu.
+        NSApp.setActivationPolicy(.regular)
+        setupMainMenu()
 
         setupStatusItem()
         setupPopover()
@@ -33,6 +35,11 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
         // Look for a newer Pebble on the website (launch + every few hours)
         updateChecker.start()
 
+        // Opened by hand (Finder, Launchpad, Dock)? Show the menu so it's obvious Pebble is running.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { [weak self] in
+            self?.showPopover()
+        }
+
         // Re-center Dynamic Island if display configuration changes
         NotificationCenter.default.addObserver(
             forName: NSApplication.didChangeScreenParametersNotification,
@@ -43,6 +50,34 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
                 self?.dynamicIslandController.reposition()
             }
         }
+    }
+
+    private func setupMainMenu() {
+        let mainMenu = NSMenu()
+        let appItem = NSMenuItem()
+        mainMenu.addItem(appItem)
+        let appMenu = NSMenu(title: "Pebble")
+        appMenu.addItem(withTitle: "About Pebble", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
+        let updates = NSMenuItem(title: "Check for Updates…", action: #selector(checkForUpdatesFromMenu), keyEquivalent: "")
+        updates.target = self
+        appMenu.addItem(updates)
+        let open = NSMenuItem(title: "Open Pebble Menu", action: #selector(openMenuFromMenu), keyEquivalent: "p")
+        open.target = self
+        appMenu.addItem(open)
+        appMenu.addItem(.separator())
+        appMenu.addItem(withTitle: "Hide Pebble", action: #selector(NSApplication.hide(_:)), keyEquivalent: "h")
+        appMenu.addItem(.separator())
+        appMenu.addItem(withTitle: "Quit Pebble", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
+        appItem.submenu = appMenu
+        NSApp.mainMenu = mainMenu
+    }
+
+    @objc private func checkForUpdatesFromMenu() {
+        Task { await updateChecker.check(userInitiated: true) }
+    }
+
+    @objc private func openMenuFromMenu() {
+        showPopover()
     }
 
     private func setupStatusItem() {
@@ -112,6 +147,19 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
 
         browserTabWatcher = BrowserTabWatcher(store: store)
         browserTabWatcher.start()
+    }
+
+    /// Clicking Pebble's icon again (Finder, Dock, Launchpad) opens the same menu as the menu bar icon.
+    public func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        showPopover()
+        return false
+    }
+
+    private func showPopover() {
+        guard let button = statusItem.button, !popover.isShown else { return }
+        permissions.refresh()
+        popover.show(relativeTo: button.bounds, of: button, preferredEdge: .maxY)
+        NSApp.activate(ignoringOtherApps: true)
     }
 
     @objc private func togglePopover() {
