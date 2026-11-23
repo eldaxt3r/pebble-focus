@@ -16,12 +16,18 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/eldaxt3r/pebble-focus/stargazers"><img src="https://img.shields.io/github/stars/eldaxt3r/pebble-focus?style=social" alt="GitHub stars"></a>
+</p>
+
+<p align="center">
   <img src="docs/images/hero.png" alt="The Pebble landing page: the Pebble mascot above the word pebble, with floating notch, sticky-note and recap cards" width="820">
 </p>
 
 Pebble is a free, open-source focus companion for macOS. It sits in your menu bar and in a Dynamic-Island-style pill under the notch. Tell it the one thing you're working on and the one app you need, start a sprint, and Pebble keeps the clock, catches distractions, and makes you say why before you open anything else.
 
 Pebble works on **macOS 14 Sonoma or later**, on Apple Silicon and Intel Macs.
+
+> If Pebble helps you lock in, please **[star the repo](https://github.com/eldaxt3r/pebble-focus)** ⭐. It helps other people find it.
 
 - [Features](#features)
 - [Install](#install)
@@ -98,7 +104,7 @@ The AI judge, Unstick Me and the recap run through an AI command-line tool alrea
 Requirements: macOS 14+, Xcode Command Line Tools (`xcode-select --install`), Swift 5.9+.
 
 ```bash
-git clone <this repo>
+git clone https://github.com/eldaxt3r/pebble-focus.git
 cd <repo folder>
 ./build-app.sh release
 open build/PebbleCompanion.app
