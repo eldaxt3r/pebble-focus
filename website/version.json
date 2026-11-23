@@ -1,0 +1,6 @@
+{
+  "version": "1.0.1",
+  "build": 2,
+  "url": "https://pebble-focus.vercel.app/download/Pebble.dmg",
+  "notes": "Pebble now tells you when a new version is out. Check anytime from the menu bar: v1.0.1 \u00b7 Updates."
+}

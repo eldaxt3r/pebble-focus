@@ -3,6 +3,7 @@ import SwiftUI
 public struct MenuBarPopoverView: View {
     @Bindable var store: FocusSessionStore
     let permissions: PermissionsManager
+    let updateChecker: UpdateChecker
     let onOpenSetup: () -> Void
     let onQuitApp: () -> Void
 
@@ -11,11 +12,13 @@ public struct MenuBarPopoverView: View {
     public init(
         store: FocusSessionStore,
         permissions: PermissionsManager,
+        updateChecker: UpdateChecker,
         onOpenSetup: @escaping () -> Void,
         onQuitApp: @escaping () -> Void
     ) {
         self.store = store
         self.permissions = permissions
+        self.updateChecker = updateChecker
         self.onOpenSetup = onOpenSetup
         self.onQuitApp = onQuitApp
     }
@@ -299,12 +302,50 @@ public struct MenuBarPopoverView: View {
                     }
                 }
 
+                if let release = updateChecker.availableRelease {
+                    Button {
+                        updateChecker.openDownload()
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "arrow.down.circle.fill")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundStyle(Color(red: 0.208, green: 0.643, blue: 0.361))
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text("Update available: Pebble \(release.version)")
+                                    .font(.system(size: 11.5, weight: .semibold))
+                                    .foregroundStyle(.white.opacity(0.95))
+                                Text("Click to download the new version")
+                                    .font(.system(size: 10.5, weight: .medium))
+                                    .foregroundStyle(.white.opacity(0.55))
+                            }
+                            Spacer(minLength: 0)
+                        }
+                        .padding(10)
+                        .background(Color(red: 0.208, green: 0.643, blue: 0.361).opacity(0.14))
+                        .clipShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 11, style: .continuous)
+                                .strokeBorder(Color(red: 0.208, green: 0.643, blue: 0.361).opacity(0.45), lineWidth: 0.8)
+                        )
+                    }
+                    .buttonStyle(.plain)
+                }
+
                 // Minimal Footer
                 HStack {
                     Text("AI: \(store.aiBackend.shortName)")
                         .font(.system(size: 10.5, weight: .medium))
                         .foregroundStyle(.white.opacity(0.42))
                     Spacer()
+                    Button(updateChecker.status == .checking ? "Checking..." : "v\(updateChecker.currentVersion) · Updates") {
+                        Task { await updateChecker.check(userInitiated: true) }
+                    }
+                    .buttonStyle(.plain)
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(.white.opacity(0.42))
+                    .disabled(updateChecker.status == .checking)
+                    .help("Check for updates")
+                    Text("·").foregroundStyle(.white.opacity(0.3))
                     Button("Quit Pebble") {
                         onQuitApp()
                     }

@@ -1,7 +1,9 @@
 #!/bin/bash
 # Builds an anonymous, universal (Apple Silicon + Intel) Pebble.dmg and copies it into the website.
 # Ad-hoc signed: no Apple account or personal identity is embedded.
-# Afterwards: cd website && git add -A && git commit -m "New Pebble build" && git push   (Vercel redeploys)
+# Before running: raise CFBundleShortVersionString (and CFBundleVersion) in Resources/Info.plist.
+# Optional release notes: RELEASE_NOTES="Fixed X, added Y" ./make-release.sh
+# Afterwards: git add -A && git commit -m "Pebble vX.Y.Z" && git push   (Vercel redeploys; installed apps see the update)
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
@@ -41,4 +43,15 @@ xattr -c dist/Pebble.dmg
 
 mkdir -p website/download
 cp dist/Pebble.dmg website/download/Pebble.dmg
+
+# Tell installed copies of Pebble that this version exists (read by UpdateChecker.swift).
+VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" Resources/Info.plist)
+BUILD=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" Resources/Info.plist)
+VERSION="$VERSION" BUILD="$BUILD" NOTES="${RELEASE_NOTES:-}" python3 -c '
+import json, os
+json.dump({"version": os.environ["VERSION"], "build": int(os.environ["BUILD"]),
+           "url": "https://pebble-focus.vercel.app/download/Pebble.dmg",
+           "notes": os.environ["NOTES"]}, open("website/version.json", "w"), indent=2)
+open("website/version.json", "a").write("\n")'
+echo "Published website/version.json -> $VERSION"
 echo "Done: website/download/Pebble.dmg ($(du -h dist/Pebble.dmg | cut -f1))"

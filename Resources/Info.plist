@@ -2,33 +2,33 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleDevelopmentRegion</key>
-    <string>en</string>
-    <key>CFBundleExecutable</key>
-    <string>PebbleCompanion</string>
-    <key>CFBundleIdentifier</key>
-    <string>app.pebblefocus.companion</string>
-    <key>CFBundleInfoDictionaryVersion</key>
-    <string>6.0</string>
-    <key>CFBundleName</key>
-    <string>Pebble Companion</string>
-    <key>CFBundleDisplayName</key>
-    <string>Pebble Companion</string>
-    <key>CFBundlePackageType</key>
-    <string>APPL</string>
-    <key>CFBundleShortVersionString</key>
-    <string>1.0.0</string>
-    <key>CFBundleVersion</key>
-    <string>1</string>
-    <key>LSMinimumSystemVersion</key>
-    <string>14.0</string>
-    <key>LSUIElement</key>
-    <true/>
-    <key>NSHighResolutionCapable</key>
-    <true/>
-    <key>NSAppleEventsUsageDescription</key>
-    <string>Pebble Companion reads the active tab URL in Google Chrome (and other browsers) to detect off-task distractions during your focus session.</string>
-    <key>NSScreenCaptureUsageDescription</key>
-    <string>Pebble Companion optionally inspects your active window when AI Vision Watch is enabled to keep you aligned with your focus goal.</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Pebble Companion</string>
+	<key>CFBundleExecutable</key>
+	<string>PebbleCompanion</string>
+	<key>CFBundleIdentifier</key>
+	<string>app.pebblefocus.companion</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Pebble Companion</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.1</string>
+	<key>CFBundleVersion</key>
+	<string>2</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>14.0</string>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Pebble Companion reads the active tab URL in Google Chrome (and other browsers) to detect off-task distractions during your focus session.</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSScreenCaptureUsageDescription</key>
+	<string>Pebble Companion optionally inspects your active window when AI Vision Watch is enabled to keep you aligned with your focus goal.</string>
 </dict>
 </plist>

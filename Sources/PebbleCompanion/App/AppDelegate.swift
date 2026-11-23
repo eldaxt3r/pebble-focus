@@ -5,6 +5,7 @@ import SwiftUI
 public final class AppDelegate: NSObject, NSApplicationDelegate {
     private let store = FocusSessionStore()
     private let permissions = PermissionsManager()
+    private let updateChecker = UpdateChecker()
 
     private var statusItem: NSStatusItem!
     private var popover: NSPopover!
@@ -28,6 +29,9 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Show floating transparent Pebble Dynamic Island immediately
         dynamicIslandController.show()
+
+        // Look for a newer Pebble on the website (launch + every few hours)
+        updateChecker.start()
 
         // Re-center Dynamic Island if display configuration changes
         NotificationCenter.default.addObserver(
@@ -61,6 +65,7 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
             rootView: MenuBarPopoverView(
                 store: store,
                 permissions: permissions,
+                updateChecker: updateChecker,
                 onOpenSetup: { [weak self] in
                     self?.popover.performClose(nil)
                     self?.setupWindowController.show()
