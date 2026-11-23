@@ -105,7 +105,7 @@ Requirements: macOS 14+, Xcode Command Line Tools (`xcode-select --install`), Sw
 
 ```bash
 git clone https://github.com/eldaxt3r/pebble-focus.git
-cd <repo folder>
+cd pebble-focus
 ./build-app.sh release
 open build/PebbleCompanion.app
 ```
